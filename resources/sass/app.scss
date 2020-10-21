@@ -6,3 +6,62 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+html {
+    background: #000;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background: none;
+    width: 80%;
+    margin: 2em auto 0;
+    color: #fff;
+}
+
+a {
+    color: #fff;
+    font-size: 1.7em;
+    line-height: 1;
+    background: rgb(0 0 0 / 60%);
+    padding: 0.3em;
+    display: block;
+}
+
+label {
+    width: 100%;
+}
+
+input {
+    font-size: 2em;
+    &[name=term] {
+        width: 100%;
+        display: block;
+    }
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+    &#bookList {
+        li {
+            flex: 0 0 20%;
+            margin: 1.3em 0.2em;
+            display: block;
+            height: 12em;
+            background-size: cover!important;
+            overflow: hidden;
+            a {
+            }
+        }
+    }
+}
+
+
+@include media-breakpoint-up(sm) {
+    #bookList {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+}
