@@ -12,4 +12,4 @@
 */
 
 Route::get('/', 'IndexController@index')->name('home');
-Route::post('fetch', 'IndexController@fetchBooks')->name('fetchBooks');
+Route::post('/fetchBooks', 'IndexController@fetchBooks')->name('fetchBooks');

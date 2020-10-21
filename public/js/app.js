@@ -38905,7 +38905,92 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-console.log('hi');
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var $listing = $("#bookList");
+$(function () {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $('form#fetchBooks').submit(function (e) {
+    e.preventDefault();
+    var $form = $(e.currentTarget);
+    $.ajax({
+      type: 'POST',
+      url: 'fetchBooks',
+      data: {
+        term: $form.find('input[name=term]').val()
+      },
+      success: function success(results) {
+        var books = JSON.parse(results).items;
+        appendBooks(books);
+      }
+    });
+  });
+  $('#sort li').click(function () {
+    var sortDirection = $(this).data('sort');
+    sortTitles(sortDirection);
+  });
+  $listing.on('click', 'li', function (e) {
+    e.preventDefault();
+    var bookInfo = $(this).data('info');
+    showInfoPage(bookInfo);
+  });
+});
+
+function appendBooks(books) {
+  var _iterator = _createForOfIteratorHelper(books),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var book = _step.value;
+      var info = book.volumeInfo;
+      var infoJson = JSON.stringify(info);
+      var bookStyle = "style=\"background: url(".concat(info.imageLinks.thumbnail, ")\"");
+      var bookItem = "<li data-title=\"".concat(info.title, "\" data-info='").concat(infoJson, "' ").concat(bookStyle, "><a href=\"\">").concat(info.title, "</a></li>");
+      $listing.append(bookItem);
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+}
+
+function sortTitles(sortDirection) {
+  var $booksOnShelf = $listing.find('li');
+  var bookShelfTitles = [];
+  $booksOnShelf.each(function (i) {
+    bookShelfTitles.push($(this).data('title'));
+  });
+  var sortedTitlesAsc = bookShelfTitles.sort(); //0 = asc, 1 = desc
+
+  if (sortDirection) {
+    sortBooks(sortedTitlesAsc.reverse());
+  }
+
+  sortBooks(sortedTitlesAsc);
+}
+
+function sortBooks(sortedTitles) {
+  var $booksOnShelf = $listing.find('li');
+  $booksOnShelf.each(function (i) {
+    var title = $(this).data('title');
+    var newOrder = sortedTitles.indexOf(title);
+    $(this).css('order', newOrder);
+  });
+}
+
+function showInfoPage(bookInfo) {
+  $('#infoPage').show();
+}
 
 /***/ }),
 
