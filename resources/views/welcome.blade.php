@@ -20,7 +20,7 @@
                     <input name="term" placeholder="Search books"/>
                 </label>
                 <input type="submit">
-                <img src="https://books.google.com/googlebooks/images/poweredby.png" alt="Google attribution">
+                <img class="logo" src="https://books.google.com/googlebooks/images/poweredby.png" alt="Google attribution">
             </form>
             <ul id="sort">
                 <li data-sort="0"><a href="">Title A-Z</a></li>
@@ -32,6 +32,7 @@
         <div id="bookInfo" class="hide">
             <table></table>
         </div>
+        <a href={{env('GITHUB_REPO')}}>Github Repo</a>
     </body>
     <script src="{{ asset('js/manifest.js?v=1.0') }}"></script>
     <script src="{{ asset('js/app.js?v=1.0') }}"></script>
