@@ -21,11 +21,7 @@ body {
 
 a {
     color: #fff;
-    font-size: 1.7em;
     line-height: 1;
-    background: rgb(0 0 0 / 60%);
-    padding: 0.3em;
-    display: block;
 }
 
 label {
@@ -48,12 +44,26 @@ ul {
             flex: 0 0 20%;
             margin: 1.3em 0.2em;
             display: block;
+            position: relative;
             height: 12em;
             background-size: cover!important;
             overflow: hidden;
             a {
+                font-size: 1.7em;
+                background: rgb(0 0 0 / 60%);
+                padding: 0.3em;
+                display: block;
+                position: absolute;
+                bottom: 0;
+            }
+            button.close {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                font-size: 2em;
             }
         }
+
     }
 }
 

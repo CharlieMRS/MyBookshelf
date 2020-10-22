@@ -54,7 +54,7 @@ function appendBooks(books) {
         const info = book.volumeInfo;
         const infoJson = JSON.stringify(info).replace(/'/g, "");
         const bookStyle = `style="background: url(${info.imageLinks.thumbnail})"`;
-        const bookItem = `<li data-title="${info.title}" data-info='${infoJson}' ${bookStyle}><a href="">${info.title}</a></li>`;
+        const bookItem = `<li data-title="${info.title}" data-info='${infoJson}' ${bookStyle}><a href="">${info.title}</a>${closeButton}</li>`;
         $listing.append(bookItem);
     }
 }
