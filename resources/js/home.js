@@ -1,4 +1,6 @@
+const $home = $("#home");
 const $listing = $("#bookList");
+const $bookInfo = $("#bookInfo");
 
 $(function() {
 
@@ -24,22 +26,33 @@ $(function() {
         });
     });
 
-    $('#sort li').click(function() {
+    $('#sort li').click(function(e) {
+        e.preventDefault();
         const sortDirection = $(this).data('sort');
         sortTitles(sortDirection);
     });
 
-    $listing.on('click', 'li', function (e) {
+    $listing.on('click', 'a', function (e) {
         e.preventDefault();
-        const bookInfo = $(this).data('info');
+        const bookInfo = $(this).parent('li').data('info');
         showInfoPage(bookInfo);
+    }).on('click', '.close', function () {
+        $(this).closest('li').remove();
+    });
+
+    $('h1 a').click( e => {
+        e.preventDefault();
+        $home.removeClass('hide');
+        $bookInfo.addClass('hide');
     });
 });
 
 function appendBooks(books) {
+    $listing.html('');
+    const closeButton = '<button type="button" class="close"><span aria-hidden="true">&times;</span></button>';
     for (const book of books) {
         const info = book.volumeInfo;
-        const infoJson = JSON.stringify(info);
+        const infoJson = JSON.stringify(info).replace(/'/g, "");
         const bookStyle = `style="background: url(${info.imageLinks.thumbnail})"`;
         const bookItem = `<li data-title="${info.title}" data-info='${infoJson}' ${bookStyle}><a href="">${info.title}</a></li>`;
         $listing.append(bookItem);
@@ -74,5 +87,16 @@ function sortBooks(sortedTitles) {
 
 
 function showInfoPage(bookInfo) {
-    $('#infoPage').show();
+    $home.addClass('hide');
+    $bookInfo.removeClass('hide');
+
+    const $bookInfoTable = $bookInfo.find('table');
+    $bookInfoTable.html('');
+    $.each(bookInfo, function (index, value) {
+        //todo: deal w/ objects too
+        if (typeof value === 'string') {
+            const row = `<tr><td>${index}</td><td>${value}</td></tr>`;
+            $bookInfoTable.append(row);
+        }
+    });
 }

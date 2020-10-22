@@ -57,6 +57,11 @@ ul {
     }
 }
 
+.hide{
+    display: none;
+}
+
+
 
 @include media-breakpoint-up(sm) {
     #bookList {
