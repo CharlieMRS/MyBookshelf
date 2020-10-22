@@ -17,8 +17,10 @@
             <form id='fetchBooks' method="POST" {{--action="{{ route('fetchBooks') }}"--}}>
                 @csrf
                 <label>
-                    <input name="term" placeholder="Find books"/>
+                    <input name="term" placeholder="Search books"/>
                 </label>
+                <input type="submit">
+                <img src="https://books.google.com/googlebooks/images/poweredby.png" alt="Google attribution">
             </form>
             <ul id="sort">
                 <li data-sort="0"><a href="">Title A-Z</a></li>

@@ -28,11 +28,18 @@ label {
     width: 100%;
 }
 
-input {
-    font-size: 2em;
-    &[name=term] {
-        width: 100%;
-        display: block;
+#fetchBooks {
+    display: flex;
+    align-items: start;
+    input {
+        font-size: 2em;
+        &[name=term] {
+            width: 100%;
+            display: block;
+        }
+    }
+    .logo {
+        margin: 0.5em 0 0 .5em;
     }
 }
 
