@@ -21,7 +21,7 @@ class IndexController extends Controller
         $params = [
             'q' => $request->term,
             'maxResults' => 8,
-            'Key' => 'AIzaSyB2lJykSOszOVQx3vsQs60yajFsUS14j1Y'
+            'Key' => env('GOOGLE_BOOKS_API_KEY')
         ];
 
         $client = new Client();
